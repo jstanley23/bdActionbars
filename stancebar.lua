@@ -1,7 +1,8 @@
 local addon, ab = ...
 local config = bdCore.config["Actionbars"]
 
-ab.stancebar:SetPoint("BOTTOM", UIParent, "BOTTOM", 0, 190)
+if (bdCore.isLegion) then return end
+
 bdCore:makeMovable(ab.stancebar)
 
 StanceBarFrame:SetParent(ab.stancebar)
@@ -46,13 +47,9 @@ function ab.stancebar:Update()
 		ab.stancebar["Button"..i] = Button
 	end
 end
-bdCore:hookEvent("bdcore_redraw",function() ab.stancebar:Update() end)
+--bdCore:hookEvent("bdcore_redraw",function() ab.stancebar:Update() end)
 
 ab.stancebar:RegisterEvent("PLAYER_ENTERING_WORLD")
-ab.stancebar:RegisterEvent("UPDATE_SHAPESHIFT_USABLE")
-ab.stancebar:RegisterEvent("UPDATE_SHAPESHIFT_COOLDOWN")
-ab.stancebar:RegisterEvent("UPDATE_SHAPESHIFT_FORM")
-ab.stancebar:RegisterEvent("ACTIONBAR_PAGE_CHANGED")
 ab.stancebar:RegisterEvent("PLAYER_TALENT_UPDATE")
 ab.stancebar:RegisterEvent("SPELLS_CHANGED")
 ab.stancebar:SetScript("OnEvent", function(self, event, ...)

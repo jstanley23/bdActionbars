@@ -1,7 +1,6 @@
 local addon, ab = ...
 local config = bdCore.config["Actionbars"]
 
-ab.bar5:SetPoint("BOTTOM", UIParent, "BOTTOM", 0, 190)
 bdCore:makeMovable(ab.bar5)
 
 MultiBarLeft:SetParent(ab.bar5)
@@ -24,6 +23,7 @@ function ab.bar5:Update()
 		Button:SetFrameLevel(15)
 		Button:SetAttribute("flyoutDirection","UP")
 		ab:skinButton(Button,"bar5",ab.bar5)
+
 		if (not lastbutton) then
 			Button:SetPoint("TOPLEFT", self, "TOPLEFT", 0, 0)
 		else
@@ -40,7 +40,7 @@ function ab.bar5:Update()
 		ab.bar5["Button"..i] = Button
 	end
 end
-bdCore:hookEvent("bdcore_redraw",function() ab.bar5:Update() end)
+--bdCore:hookEvent("bdcore_redraw",function() ab.bar5:Update() end)
 
 for i = 7, 12 do
 	local Button = _G["MultiBarLeftButton"..i]

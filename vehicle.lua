@@ -24,7 +24,7 @@ end
 
 
 vehicle:SetPoint("BOTTOM", ab.bar1, "TOP", 0, 10)
-vehicle:Size(30, 30)
+vehicle:SetSize(30, 30)
 vehicle:SetFrameStrata("TOOLTIP")
 bdCore:setBackdrop(vehicle)
 vehicle:SetFrameStrata("MEDIUM")

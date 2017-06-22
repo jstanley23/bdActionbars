@@ -1,7 +1,6 @@
 local addon, ab = ...
 local config = bdCore.config["Actionbars"]
 
-ab.petbar:SetPoint("BOTTOM", UIParent, "BOTTOM", 0, 190)
 bdCore:makeMovable(ab.petbar)
 
 PetActionBarFrame:SetParent(ab.petbar)
@@ -21,7 +20,7 @@ function ab.petbar:Update()
 	for i = 1, NUM_PET_ACTION_SLOTS do
 		local Button = _G["PetActionButton"..i]
 		local border = bdCore.config['General'].border
-		Button:Size(config.buttonsize,config.buttonsize)
+		Button:SetSize(config.buttonsize,config.buttonsize)
 		Button:ClearAllPoints()
 		Button:SetParent(ab.petbar)
 		Button:SetFrameStrata("BACKGROUND")
@@ -44,7 +43,7 @@ function ab.petbar:Update()
 		ab.petbar["Button"..i] = Button
 	end
 end
-bdCore:hookEvent("bdcore_redraw",function() ab.petbar:Update() end)
+--bdCore:hookEvent("bdcore_redraw",function() ab.petbar:Update() end)
 
 ab.petbar:Update()
 

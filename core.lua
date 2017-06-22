@@ -1,19 +1,19 @@
 local addon, ab = ...
 
 ab.bar1 = CreateFrame("frame", "bdActionbar 1", UIParent, "SecureHandlerStateTemplate")
-ab.bar1:SetPoint("BOTTOM", UIParent, "BOTTOM", 0, 20)
+ab.bar1:SetPoint("BOTTOM", UIParent, "BOTTOM", 0, 30)
 ab.bar2 = CreateFrame("frame", "bdActionbar 2", UIParent, "SecureHandlerStateTemplate")
-ab.bar2:SetPoint("BOTTOM", UIParent, "BOTTOM", 0, 220)
+ab.bar2:SetPoint("BOTTOM", UIParent, "BOTTOM", -220, 30)
 ab.bar3 = CreateFrame("frame", "bdActionbar 3", UIParent, "SecureHandlerStateTemplate")
-ab.bar3:SetPoint("BOTTOM", UIParent, "BOTTOM", 0, 220)
+ab.bar3:SetPoint("BOTTOM", UIParent, "BOTTOM", 220, 30)
 ab.bar4 = CreateFrame("frame", "bdActionbar 4", UIParent, "SecureHandlerStateTemplate")
-ab.bar4:SetPoint("BOTTOM", UIParent, "BOTTOM", 0, 220)
+ab.bar4:SetPoint("RIGHT", UIParent, "RIGHT", -20, 0)
 ab.bar5 = CreateFrame("frame", "bdActionbar 5", UIParent, "SecureHandlerStateTemplate")
-ab.bar5:SetPoint("BOTTOM", UIParent, "BOTTOM", 0, 220)
+ab.bar5:SetPoint("RIGHT", UIParent, "RIGHT", -70, 0)
 ab.petbar = CreateFrame("frame", "bdPetActionbar", UIParent, "SecureHandlerStateTemplate")
-ab.petbar:SetPoint("BOTTOM", UIParent, "BOTTOM", 0, 220)
+ab.petbar:SetPoint("BOTTOM", UIParent, "BOTTOM", 0, 120)
 ab.stancebar = CreateFrame("frame", "bdStancebar", UIParent, "SecureHandlerStateTemplate")
-ab.stancebar:SetPoint("BOTTOM", UIParent, "BOTTOM", 0, 220)
+ab.stancebar:SetPoint("TOPLEFT", UIParent, "TOPLEFT", 20, -220)
 ab.extra = CreateFrame("frame", "bdExtraActionButton", UIParent)
 ab.extra:SetPoint("BOTTOM", UIParent, "BOTTOM", 0, 220)
 ab.ranged = CreateFrame("frame", nil, UIParent)
@@ -52,18 +52,27 @@ defaults[#defaults+1] = {hidehotkeys = {
 	type = "checkbox",
 	value = true,
 	label = "Hide Hotkeys",
-	tooltip = "Hide <h></h>otkeys on all bar until you mouse over each button"
+	tooltip = "Hide hotkeys on all bar until you mouse over each button"
 }}
 
 -- bar1
-defaults[#defaults+1] = {label = {
-	type = "text",
-	value = "Bar 1",
+defaults[#defaults+1] = {tab = {
+	type = "tab",
+	value = "Bar1",
 }}
 defaults[#defaults+1] = {bar1rows= {
 	type = "slider",
-	value = 1,
+	value = 2,
 	label = "Num Rows",
+	step = 1,
+	min = 1,
+	max = 12,
+	callback = function() ab.bar1:Update() end
+}}
+defaults[#defaults+1] = {bar1buttons= {
+	type = "slider",
+	value = 12,
+	label = "Num Buttons",
 	step = 1,
 	min = 1,
 	max = 12,
@@ -87,14 +96,23 @@ defaults[#defaults+1] = {bar1hidemo = {
 }}
 
 -- bar2
-defaults[#defaults+1] = {label = {
-	type = "text",
-	value = "Bar 2",
+defaults[#defaults+1] = {tab = {
+	type = "tab",
+	value = "Bar2",
 }}
 defaults[#defaults+1] = {bar2rows = {
 	type = "slider",
-	value = 1,
+	value = 2,
 	label = "Num Rows",
+	step = 1,
+	min = 1,
+	max = 12,
+	callback = function() ab.bar2:Update() end
+}}
+defaults[#defaults+1] = {bar2buttons= {
+	type = "slider",
+	value = 12,
+	label = "Num Buttons",
 	step = 1,
 	min = 1,
 	max = 12,
@@ -118,14 +136,23 @@ defaults[#defaults+1] = {bar2hidemo = {
 }}
 
 -- bar3
-defaults[#defaults+1] = {label = {
-	type = "text",
-	value = "Bar 3",
+defaults[#defaults+1] = {tab = {
+	type = "tab",
+	value = "Bar3",
 }}
 defaults[#defaults+1] = {bar3rows = {
 	type = "slider",
-	value = 1,
+	value = 12,
 	label = "Num Rows",
+	step = 1,
+	min = 1,
+	max = 12,
+	callback = function() ab.bar3:Update() end
+}}
+defaults[#defaults+1] = {bar3buttons= {
+	type = "slider",
+	value = 12,
+	label = "Num Buttons",
 	step = 1,
 	min = 1,
 	max = 12,
@@ -149,14 +176,23 @@ defaults[#defaults+1] = {bar3hidemo = {
 }}
 
 -- bar4
-defaults[#defaults+1] = {label = {
-	type = "text",
-	value = "Bar 4",
+defaults[#defaults+1] = {tab = {
+	type = "tab",
+	value = "Bar4",
 }}
 defaults[#defaults+1] = {bar4rows = {
 	type = "slider",
-	value = 1,
+	value = 12,
 	label = "Num Rows",
+	step = 1,
+	min = 1,
+	max = 12,
+	callback = function() ab.bar4:Update() end
+}}
+defaults[#defaults+1] = {bar4buttons= {
+	type = "slider",
+	value = 12,
+	label = "Num Buttons",
 	step = 1,
 	min = 1,
 	max = 12,
@@ -180,14 +216,23 @@ defaults[#defaults+1] = {bar4hidemo = {
 }}
 
 --bar5
-defaults[#defaults+1] = {label = {
-	type = "text",
-	value = "Bar 5",
+defaults[#defaults+1] = {tab = {
+	type = "tab",
+	value = "Bar5",
 }}
 defaults[#defaults+1] = {bar5rows = {
 	type = "slider",
-	value = 1,
+	value = 12,
 	label = "Num Rows",
+	step = 1,
+	min = 1,
+	max = 12,
+	callback = function() ab.bar5:Update() end
+}}
+defaults[#defaults+1] = {bar5buttons= {
+	type = "slider",
+	value = 12,
+	label = "Num Buttons",
 	step = 1,
 	min = 1,
 	max = 12,
@@ -211,9 +256,9 @@ defaults[#defaults+1] = {bar5hidemo = {
 }}
 
 --stancebar
-defaults[#defaults+1] = {label = {
-	type = "text",
-	value = "Stance Bar",
+defaults[#defaults+1] = {tab = {
+	type = "tab",
+	value = "Stance",
 }}
 defaults[#defaults+1] = {stancebarrows = {
 	type = "slider",
@@ -242,9 +287,9 @@ defaults[#defaults+1] = {stancebarhidemo = {
 }}
 
 --petbar
-defaults[#defaults+1] = {label = {
-	type = "text",
-	value = "Pet Bar",
+defaults[#defaults+1] = {tab = {
+	type = "tab",
+	value = "Pet",
 }}
 defaults[#defaults+1] = {petbarrows = {
 	type = "slider",
@@ -275,8 +320,8 @@ defaults[#defaults+1] = {petbarhidemo = {
 
 
 
-bdCore:addModule("Actionbars", defaults)
-local config = bdCore.config["Actionbars"]
+local config = bdCore:addModule("Actionbars", defaults)
+--local config = bdCore.config["Actionbars"]
 
 function ab:UpdateAll()
 	ab.bar1:Update()
@@ -284,8 +329,12 @@ function ab:UpdateAll()
 	ab.bar3:Update()
 	ab.bar4:Update()
 	ab.bar5:Update()
-	ab.stancebar:Update()
-	ab.petbar:Update()
+	if (ab.stancebar.Update) then
+		ab.stancebar:Update() 
+	end
+	if (ab.petbar.Update) then
+		ab.petbar:Update()
+	end
 end
 
 function ab:UpdateHotkeys()
@@ -330,8 +379,13 @@ function ab:UpdateHotkeys()
 end
 
 function ab:styleFlyout()
-	if (self.FlyoutArrow) then	
+	if (self.FlyoutArrow and not InCombatLockdown()) then	
+		
 		local FlyoutButtons = 0
+		
+		if (SpellFlyout) then
+			--SpellFlyout:SetWidth(config.buttonsize)
+		end
 		
 		if self.FlyoutBorder then
 			self.FlyoutBorder:SetAlpha(0)
@@ -351,14 +405,19 @@ function ab:styleFlyout()
 			end
 		end
 		
+		local lastbutton = nil
 		for i = 1, FlyoutButtons do
-			local Button = _G["SpellFlyoutButton"..i]
-			if (Button and not Button.IsSkinned) then
-				Button.IsSkinned = true
-				ab:skinButton(self)
-				if Button:GetChecked() then
-					Button:SetChecked(nil)
+			local button = _G["SpellFlyoutButton"..i]
+			if (button) then
+				ab:skinButton(button)
+				button:ClearAllPoints()
+				button:SetSize(config.buttonsize, config.buttonsize)
+				if (not lastbutton) then
+					button:SetPoint("BOTTOM",SpellFlyout, "BOTTOM", 0,2)
+				else
+					button:SetPoint("BOTTOM",lastbutton,"TOP", 0, 2)
 				end
+				lastbutton = button
 			end
 		end
 	end
@@ -380,19 +439,19 @@ function ab:skinButton(frame,bar,parent)
 	local border  = _G[name.."Border"]
 	local btname = _G[name.."Name"]
 	local normal  = _G[name.."NormalTexture"]
+	local normal2  = _G[name.."NormalTexture2"]
 	local btnBG = _G[name.."FloatingBG"]
 	
 	flash:SetTexture("")
 	frame:SetNormalTexture("")
 	icon:SetTexCoord(.1, .9, .1, .9)
 	icon:SetDrawLayer("ARTWORK")
-	
 
 	if (bar and config[bar..'alpha']) then
 		frame:SetAlpha(config[bar..'alpha'])
 	end
 	
-	--if frame.skinned then return end
+	if frame.skinned then return end
 	
 	hotkey:ClearAllPoints()
 	hotkey:SetFont(bdCore.media.font, 12, "OUTLINE")
@@ -461,36 +520,55 @@ function ab:skinButton(frame,bar,parent)
 
 	-- button textures
 	local hover = frame:CreateTexture()
-	hover:SetTexture(1, 1, 1, 0.1)
+	hover:SetTexture(bdCore.media.flat)
+	hover:SetVertexColor(1, 1, 1, 0.1)
 	hover:SetAllPoints(frame)
 	frame.hover = hover
 	frame:SetHighlightTexture(hover)
 
 	local pushed = frame:CreateTexture()
-	pushed:SetTexture(1,1,1,0.2)
+	pushed:SetTexture(bdCore.media.flat)
+	pushed:SetVertexColor(1, 1, 1, 0.2)
 	pushed:SetAllPoints(frame)
 	frame.pushed = pushed
 	frame:SetPushedTexture(pushed)
 
 	local checked = frame:CreateTexture()
-	checked:SetTexture(.2,1,.2,.2)
+	checked:SetTexture(bdCore.media.flat)
+	checked:SetVertexColor(0.2,1,0.2)
+	checked:SetAlpha(0.3)
+	checked.SetAlpha = function() return end -- stop it, game
 	checked:SetAllPoints(frame)
 	frame.checked = checked
 	frame:SetCheckedTexture(checked)
 	
 	bdCore:setBackdrop(frame)
 	
-	if (bar and parent and config[bar..'hidemo']) then
+	if (bar and parent) then
 		if (not parent.hooked) then
 			parent.total = 0
 			parent:HookScript("OnUpdate",function(self,elapsed)
 				parent.total = parent.total + elapsed
-				if (parent.total > 0.1) then
+				if (parent.total > 0.1 and config[bar..'hidemo']) then
 					parent.total = 0
 					if (MouseIsOver(self) or bdCore.moving) then
 						self:SetAlpha(1)
 					else
 						self:SetAlpha(0)
+						if (SpellFlyout:IsShown()) then
+							local bdparent = SpellFlyout:GetParent():GetParent():GetParent():GetName()
+							if (bdparent == self:GetName() and not MouseIsOver(SpellFlyout)) then
+								SpellFlyout:Hide()
+							end
+						end
+					end
+					
+					
+					if (SpellFlyout:IsShown() and MouseIsOver(SpellFlyout)) then
+						local bdparent = SpellFlyout:GetParent():GetParent():GetParent():GetName()
+						if bdparent == self:GetName() then
+							self:SetAlpha(1)
+						end
 					end
 				end
 			end)
@@ -498,10 +576,17 @@ function ab:skinButton(frame,bar,parent)
 			parent.hooked = true
 		end
 		if (not frame.hooked) then
-			frame:HookScript("OnLeave",function()if(not MouseIsOver(parent))then parent:SetAlpha(0)end end)
-			frame:HookScript("OnEnter",function()parent:SetAlpha(1)end)
-			cooldown:HookScript("OnShow",function(self)if(parent:GetAlpha()==0)then self:Hide()end end)
-			
+			frame:HookScript("OnLeave",function()
+				if(not MouseIsOver(parent) and not MouseIsOver(SpellFlyout) and config[bar..'hidemo'])then 
+					parent:SetAlpha(0)
+				end 
+			end)
+			frame:HookScript("OnEnter",function()
+				parent:SetAlpha(1)
+			end)
+			cooldown:HookScript("OnShow",function(self)
+				if(parent:GetAlpha()==0)then self:Hide()end 
+			end)
 			frame.hooked = true
 		end
 		if (config[bar..'hidemo']) then
@@ -537,14 +622,15 @@ function ab:skinButton(frame,bar,parent)
 		btnBG:Hide()
 		btnBG.Hide = function() return nil end
 	end
-	--frame.skinned = true
+	frame.skinned = true
 end
 
 function ab:Size(frame, group, num)
+	if (InCombatLockdown()) then return end
 	local border = bdCore.config['General'].border
 	local rows = math.floor(num/config[group])
 	local height = (config.buttonsize+border+config.buttonspacing)*(num/rows)-config.buttonspacing-border
 	local width = (config.buttonsize+border+config.buttonspacing)*(rows)-config.buttonspacing-border
-	frame:Size(width, height)
+	frame:SetSize(width, height)
 	--frame.moveContainer:Size(width+4, height+4)
 end
