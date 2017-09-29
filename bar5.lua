@@ -1,5 +1,5 @@
 local addon, ab = ...
-local config = bdCore.config["Actionbars"]
+local config = bdCore.config.profile['Actionbars']
 
 bdCore:makeMovable(ab.bar5)
 
@@ -8,6 +8,7 @@ MultiBarLeft:SetScript("OnHide", function() ab.bar5:Hide() end)
 MultiBarLeft:SetScript("OnShow", function() ab.bar5:Show() end)
 
 function ab.bar5:Update()
+	config = bdCore.config.profile['Actionbars']
 	local rows = math.floor(NUM_ACTIONBAR_BUTTONS/config.bar5rows)
 	local index = 1
 	local lastrow = MultiBarLeftButton1
@@ -16,7 +17,7 @@ function ab.bar5:Update()
 	
 	for i = 1, NUM_ACTIONBAR_BUTTONS do
 		local Button = _G["MultiBarLeftButton"..i]
-		local border = bdCore.config['General'].border
+		local border = bdCore.config.profile['General'].border
 		Button:SetSize(config.buttonsize,config.buttonsize)
 		Button:ClearAllPoints()
 		Button:SetFrameStrata("BACKGROUND")
@@ -40,7 +41,7 @@ function ab.bar5:Update()
 		ab.bar5["Button"..i] = Button
 	end
 end
---bdCore:hookEvent("bdcore_redraw",function() ab.bar5:Update() end)
+--bdCore:hookEvent("bd_reconfig",function() ab.bar5:Update() end)
 
 for i = 7, 12 do
 	local Button = _G["MultiBarLeftButton"..i]

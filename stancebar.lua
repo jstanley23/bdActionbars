@@ -1,5 +1,5 @@
 local addon, ab = ...
-local config = bdCore.config["Actionbars"]
+local config = bdCore.config.profile['Actionbars']
 
 if (bdCore.isLegion) then return end
 
@@ -16,6 +16,7 @@ StanceBarRight:Hide()
 StanceBarRight.Show = nil
 
 function ab.stancebar:Update()
+	config = bdCore.config.profile['Actionbars']
 	local num = GetNumShapeshiftForms()
 	local rows = math.floor(num/config.stancebarrows)
 	local index = 1
@@ -47,7 +48,7 @@ function ab.stancebar:Update()
 		ab.stancebar["Button"..i] = Button
 	end
 end
---bdCore:hookEvent("bdcore_redraw",function() ab.stancebar:Update() end)
+--dCore:hookEvent("bd_reconfig",function() ab.stancebar:Update() end)
 
 ab.stancebar:RegisterEvent("PLAYER_ENTERING_WORLD")
 ab.stancebar:RegisterEvent("PLAYER_TALENT_UPDATE")
