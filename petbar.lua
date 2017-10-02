@@ -20,7 +20,7 @@ function ab.petbar:Update()
 	
 	for i = 1, NUM_PET_ACTION_SLOTS do
 		local Button = _G["PetActionButton"..i]
-		local border = bdCore.config.profile['General'].border
+		local border = bdCore.config.persistent['General'].border
 		Button:SetSize(config.buttonsize,config.buttonsize)
 		Button:ClearAllPoints()
 		Button:SetParent(ab.petbar)

@@ -26,7 +26,7 @@ function ab.stancebar:Update()
 	
 	for i = 1, NUM_STANCE_SLOTS do
 		local Button = _G["StanceButton"..i]
-		local border = bdCore.config['General'].border
+		local border = bdCore.config.persistent['General'].border
 		Button:SetSize(config.buttonsize,config.buttonsize)
 		Button:ClearAllPoints()
 		Button:SetFrameStrata("BACKGROUND")
