@@ -142,7 +142,7 @@ defaults[#defaults+1] = {tab = {
 }}
 defaults[#defaults+1] = {bar3rows = {
 	type = "slider",
-	value = 12,
+	value = 2,
 	label = "Num Rows",
 	step = 1,
 	min = 1,
@@ -320,8 +320,8 @@ defaults[#defaults+1] = {petbarhidemo = {
 
 
 
-local config = bdCore:addModule("Actionbars", defaults)
---local config = bdCore.config["Actionbars"]
+bdCore:addModule("Actionbars", defaults)
+local config = bdCore.config.profile["Actionbars"]
 
 function ab:UpdateAll()
 	ab.bar1:Update()
@@ -337,7 +337,10 @@ function ab:UpdateAll()
 	end
 end
 
+bdCore:hookEvent("bd_reconfig",function() ab:UpdateAll() end)
+
 function ab:UpdateHotkeys()
+	config = bdCore.config.profile["Actionbars"]
 	local hotkey = _G[self:GetName() .. "HotKey"]
 	local text = hotkey:GetText()
 	if (not text) then return end
@@ -379,6 +382,7 @@ function ab:UpdateHotkeys()
 end
 
 function ab:styleFlyout()
+	config = bdCore.config.profile["Actionbars"]
 	if (self.FlyoutArrow and not InCombatLockdown()) then	
 		
 		local FlyoutButtons = 0
@@ -428,6 +432,8 @@ hooksecurefunc("ActionButton_UpdateHotkeys", ab.UpdateHotkeys)
 hooksecurefunc("PetActionButton_SetHotkeys", ab.UpdateHotkeys)
 
 function ab:skinButton(frame,bar,parent)
+	config = bdCore.config.profile["Actionbars"]
+
 	local name = frame:GetName()
 	local button = frame
 	local icon = _G[name.."Icon"]
@@ -570,6 +576,8 @@ function ab:skinButton(frame,bar,parent)
 							self:SetAlpha(1)
 						end
 					end
+				elseif (not config[bar.."hidemo"]) then
+					self:SetAlpha(1)
 				end
 			end)
 			
@@ -627,7 +635,7 @@ end
 
 function ab:Size(frame, group, num)
 	if (InCombatLockdown()) then return end
-	local border = bdCore.config['General'].border
+	local border = bdCore.config.persistent['General'].border
 	local rows = math.floor(num/config[group])
 	local height = (config.buttonsize+border+config.buttonspacing)*(num/rows)-config.buttonspacing-border
 	local width = (config.buttonsize+border+config.buttonspacing)*(rows)-config.buttonspacing-border
