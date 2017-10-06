@@ -1,5 +1,5 @@
 local addon, ab = ...
-local config = bdCore.config["Actionbars"]
+local config = bdCore.config.profile['Actionbars']
 
 bdCore:makeMovable(ab.bar1)
 
@@ -57,6 +57,7 @@ end
 updateDriver()
 
 function ab.bar1:Update()
+	config = bdCore.config.profile['Actionbars']
 	local rows = math.floor(NUM_ACTIONBAR_BUTTONS/config.bar1rows)
 	local index = 1
 	local lastrow = ActionButton1
@@ -65,7 +66,7 @@ function ab.bar1:Update()
 	
 	for i = 1, NUM_ACTIONBAR_BUTTONS do
 		local Button = _G["ActionButton"..i]
-		local border = bdCore.config['General'].border
+		local border = bdCore.config.persistent['General'].border
 		Button:SetSize(config.buttonsize,config.buttonsize)
 		Button:ClearAllPoints()
 		Button:SetParent(self)
@@ -87,7 +88,6 @@ function ab.bar1:Update()
 		lastbutton = Button
 	end
 end
---bdCore:hookEvent("bdcore_redraw",function() ab.bar1:Update() end)
 
 ab.bar1:RegisterEvent("PLAYER_ENTERING_WORLD")
 ab.bar1:RegisterEvent("KNOWN_CURRENCY_TYPES_UPDATE")
