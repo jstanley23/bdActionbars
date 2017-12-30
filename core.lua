@@ -604,11 +604,9 @@ function ab:skinButton(frame,bar,parent)
 		end
 	end
 	
-	
-
 	if _G[name.."Shine"] then
-		_G[name.."Shine"]:SetAlpha(0)
-		_G[name.."Shine"]:Hide()
+		--_G[name.."Shine"]:SetAlpha(0)
+		--_G[name.."Shine"]:Hide()
 		_G[name.."Shine"]:SetPoint("BOTTOMLEFT", frame, "BOTTOMLEFT", 0, 0)
 		_G[name.."Shine"]:SetPoint("TOPRIGHT", frame, "TOPRIGHT", 0, 0)
 	end
