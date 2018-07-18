@@ -2,6 +2,7 @@ local addon, engine = ...
 
 engine[1] = CreateFrame("Frame", nil, UIParent)
 engine[2] = bdCore.config.profile.Actionbars
+local ab = engine[1] or {}
 
 function engine:unpack()
 	return self[1], self[2]
