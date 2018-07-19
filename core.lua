@@ -1,11 +1,384 @@
-local addon, engine = ...
+local addon, ab = ...
 
-engine[1] = CreateFrame("Frame", nil, UIParent)
-engine[2] = bdCore.config.profile.Actionbars
-local ab = engine[1] or {}
+ab.bar1 = CreateFrame("frame", "bdActionbar 1", UIParent, "SecureHandlerStateTemplate")
+ab.bar1:SetPoint("BOTTOM", UIParent, "BOTTOM", 0, 30)
+ab.bar2 = CreateFrame("frame", "bdActionbar 2", UIParent, "SecureHandlerStateTemplate")
+ab.bar2:SetPoint("BOTTOM", UIParent, "BOTTOM", -220, 30)
+ab.bar3 = CreateFrame("frame", "bdActionbar 3", UIParent, "SecureHandlerStateTemplate")
+ab.bar3:SetPoint("BOTTOM", UIParent, "BOTTOM", 220, 30)
+ab.bar4 = CreateFrame("frame", "bdActionbar 4", UIParent, "SecureHandlerStateTemplate")
+ab.bar4:SetPoint("RIGHT", UIParent, "RIGHT", -20, 0)
+ab.bar5 = CreateFrame("frame", "bdActionbar 5", UIParent, "SecureHandlerStateTemplate")
+ab.bar5:SetPoint("RIGHT", UIParent, "RIGHT", -70, 0)
+ab.petbar = CreateFrame("frame", "bdPetActionbar", UIParent, "SecureHandlerStateTemplate")
+ab.petbar:SetPoint("BOTTOM", UIParent, "BOTTOM", 0, 120)
+ab.stancebar = CreateFrame("frame", "bdStancebar", UIParent, "SecureHandlerStateTemplate")
+ab.stancebar:SetPoint("TOPLEFT", UIParent, "TOPLEFT", 20, -220)
+ab.extra = CreateFrame("frame", "bdExtraActionButton", UIParent)
+ab.extra:SetPoint("BOTTOM", UIParent, "BOTTOM", 0, 220)
+ab.ranged = CreateFrame("frame", nil, UIParent)
+ab.ranged:SetPoint("BOTTOM", UIParent, "BOTTOM", 0, 220)
+--ab.bindings = CreateFrame("frame", nil, UIParent)
 
-function engine:unpack()
-	return self[1], self[2]
+local defaults = {}
+-- god this is a mess, think of ways to make it nice
+-- main config
+defaults[#defaults+1] = {stanceswitch = {
+	type = "checkbox",
+	value = false,
+	label = "Switch Bars on Stance Change",
+	tooltip = "For classes like Rogue, Warrior, and Demo lock. Change to a new bar when you change stances.",
+	callback = function() ab.bar1.UpdateBar1() end
+}}
+defaults[#defaults+1] = {buttonsize = {
+	type = "slider",
+	value = 30,
+	label = "Button Size",
+	step = 2,
+	min = 10,
+	max = 50,
+	callback = function() ab:UpdateAll() end
+}}
+defaults[#defaults+1] = {buttonspacing = {
+	type = "slider",
+	value = 0,
+	label = "Button Spacing",
+	step = 1,
+	min = 0,
+	max = 10,
+	callback = function() ab:UpdateAll() end
+}}
+defaults[#defaults+1] = {hidehotkeys = {
+	type = "checkbox",
+	value = true,
+	label = "Hide Hotkeys",
+	tooltip = "Hide hotkeys on all bar until you mouse over each button"
+}}
+
+-- bar1
+defaults[#defaults+1] = {tab = {
+	type = "tab",
+	value = "Bar1",
+}}
+defaults[#defaults+1] = {bar1rows= {
+	type = "slider",
+	value = 2,
+	label = "Num Rows",
+	step = 1,
+	min = 1,
+	max = 12,
+	callback = function() ab.bar1:Update() end
+}}
+defaults[#defaults+1] = {bar1buttons= {
+	type = "slider",
+	value = 12,
+	label = "Num Buttons",
+	step = 1,
+	min = 1,
+	max = 12,
+	callback = function() ab.bar1:Update() end
+}}
+defaults[#defaults+1] = {bar1alpha = {
+	type = "slider",
+	value = 1,
+	label = "Alpha",
+	step = 0.1,
+	min = 0,
+	max = 1,
+	callback = function() ab.bar1:Update() end
+}}
+defaults[#defaults+1] = {bar1hidemo = {
+	type = "checkbox",
+	value = false,
+	label = "Hide Until Mouseover",
+	tooltip = "Hide the bar until mouseover.",
+	callback = function() ab.bar1:Update() end
+}}
+
+-- bar2
+defaults[#defaults+1] = {tab = {
+	type = "tab",
+	value = "Bar2",
+}}
+defaults[#defaults+1] = {bar2rows = {
+	type = "slider",
+	value = 2,
+	label = "Num Rows",
+	step = 1,
+	min = 1,
+	max = 12,
+	callback = function() ab.bar2:Update() end
+}}
+defaults[#defaults+1] = {bar2buttons= {
+	type = "slider",
+	value = 12,
+	label = "Num Buttons",
+	step = 1,
+	min = 1,
+	max = 12,
+	callback = function() ab.bar2:Update() end
+}}
+defaults[#defaults+1] = {bar2alpha = {
+	type = "slider",
+	value = 1,
+	label = "Alpha",
+	step = 0.1,
+	min = 0,
+	max = 1,
+	callback = function() ab.bar2:Update() end
+}}
+defaults[#defaults+1] = {bar2hidemo = {
+	type = "checkbox",
+	value = false,
+	label = "Hide Until Mouseover",
+	tooltip = "Hide the bar until mouseover.",
+	callback = function() ab.bar2:Update() end
+}}
+
+-- bar3
+defaults[#defaults+1] = {tab = {
+	type = "tab",
+	value = "Bar3",
+}}
+defaults[#defaults+1] = {bar3rows = {
+	type = "slider",
+	value = 2,
+	label = "Num Rows",
+	step = 1,
+	min = 1,
+	max = 12,
+	callback = function() ab.bar3:Update() end
+}}
+defaults[#defaults+1] = {bar3buttons= {
+	type = "slider",
+	value = 12,
+	label = "Num Buttons",
+	step = 1,
+	min = 1,
+	max = 12,
+	callback = function() ab.bar3:Update() end
+}}
+defaults[#defaults+1] = {bar3alpha = {
+	type = "slider",
+	value = 1,
+	label = "Alpha",
+	step = 0.1,
+	min = 0,
+	max = 1,
+	callback = function() ab.bar3:Update() end
+}}
+defaults[#defaults+1] = {bar3hidemo = {
+	type = "checkbox",
+	value = false,
+	label = "Hide Until Mouseover",
+	tooltip = "Hide the bar until mouseover.",
+	callback = function() ab.bar3:Update() end
+}}
+
+-- bar4
+defaults[#defaults+1] = {tab = {
+	type = "tab",
+	value = "Bar4",
+}}
+defaults[#defaults+1] = {bar4rows = {
+	type = "slider",
+	value = 12,
+	label = "Num Rows",
+	step = 1,
+	min = 1,
+	max = 12,
+	callback = function() ab.bar4:Update() end
+}}
+defaults[#defaults+1] = {bar4buttons= {
+	type = "slider",
+	value = 12,
+	label = "Num Buttons",
+	step = 1,
+	min = 1,
+	max = 12,
+	callback = function() ab.bar4:Update() end
+}}
+defaults[#defaults+1] = {bar4alpha = {
+	type = "slider",
+	value = 1,
+	label = "Alpha",
+	step = 0.1,
+	min = 0,
+	max = 1,
+	callback = function() ab.bar4:Update() end
+}}
+defaults[#defaults+1] = {bar4hidemo = {
+	type = "checkbox",
+	value = false,
+	label = "Hide Until Mouseover",
+	tooltip = "Hide the bar until mouseover.",
+	callback = function() ab.bar4:Update() end
+}}
+
+--bar5
+defaults[#defaults+1] = {tab = {
+	type = "tab",
+	value = "Bar5",
+}}
+defaults[#defaults+1] = {bar5rows = {
+	type = "slider",
+	value = 12,
+	label = "Num Rows",
+	step = 1,
+	min = 1,
+	max = 12,
+	callback = function() ab.bar5:Update() end
+}}
+defaults[#defaults+1] = {bar5buttons= {
+	type = "slider",
+	value = 12,
+	label = "Num Buttons",
+	step = 1,
+	min = 1,
+	max = 12,
+	callback = function() ab.bar5:Update() end
+}}
+defaults[#defaults+1] = {bar5alpha = {
+	type = "slider",
+	value = 1,
+	label = "Alpha",
+	step = 0.1,
+	min = 0,
+	max = 1,
+	callback = function() ab.bar5:Update() end
+}}
+defaults[#defaults+1] = {bar5hidemo = {
+	type = "checkbox",
+	value = false,
+	label = "Hide Until Mouseover",
+	tooltip = "Hide the bar until mouseover.",
+	callback = function() ab.bar5:Update() end
+}}
+
+--stancebar
+defaults[#defaults+1] = {tab = {
+	type = "tab",
+	value = "Stance",
+}}
+defaults[#defaults+1] = {stancebarrows = {
+	type = "slider",
+	value = 1,
+	label = "Num Rows",
+	step = 1,
+	min = 1,
+	max = 12,
+	callback = function() ab.stancebar:Update() end
+}}
+defaults[#defaults+1] = {stancebaralpha = {
+	type = "slider",
+	value = 1,
+	label = "Alpha",
+	step = 0.1,
+	min = 0,
+	max = 1,
+	callback = function() ab.stancebar:Update() end
+}}
+defaults[#defaults+1] = {stancebarhidemo = {
+	type = "checkbox",
+	value = false,
+	label = "Hide Until Mouseover",
+	tooltip = "Hide the bar until mouseover.",
+	callback = function() ab.stancebar:Update() end
+}}
+
+--petbar
+defaults[#defaults+1] = {tab = {
+	type = "tab",
+	value = "Pet",
+}}
+defaults[#defaults+1] = {petbarrows = {
+	type = "slider",
+	value = 1,
+	label = "Num Rows",
+	step = 1,
+	min = 1,
+	max = 12,
+	callback = function() ab.petbar:Update() end
+}}
+defaults[#defaults+1] = {petbaralpha = {
+	type = "slider",
+	value = 1,
+	label = "Alpha",
+	step = 0.1,
+	min = 0,
+	max = 1,
+	callback = function() ab.petbar:Update() end
+}}
+
+defaults[#defaults+1] = {petbarhidemo = {
+	type = "checkbox",
+	value = false,
+	label = "Hide Until Mouseover",
+	tooltip = "Hide the bar until mouseover.",
+	callback = function() ab.petbar:Update() end
+}}
+
+
+
+bdCore:addModule("Actionbars", defaults)
+local config = bdCore.config.profile["Actionbars"]
+
+function ab:UpdateAll()
+	ab.bar1:Update()
+	ab.bar2:Update()
+	ab.bar3:Update()
+	ab.bar4:Update()
+	ab.bar5:Update()
+	if (ab.stancebar.Update) then
+		ab.stancebar:Update() 
+	end
+	if (ab.petbar.Update) then
+		ab.petbar:Update()
+	end
+end
+
+bdCore:hookEvent("bd_reconfig",function() ab:UpdateAll() end)
+
+function ab:UpdateHotkeys()
+	config = bdCore.config.profile["Actionbars"]
+	local hotkey = _G[self:GetName() .. "HotKey"]
+	local text = hotkey:GetText()
+	if (not text) then return end
+	
+	text = string.gsub(text, "(s%-)", "S-")
+	text = string.gsub(text, "(a%-)", "A-")
+	text = string.gsub(text, "(c%-)", "C-")
+	text = string.gsub(text, KEY_MOUSEWHEELDOWN , "MDn")
+    text = string.gsub(text, KEY_MOUSEWHEELUP , "MUp")
+	text = string.gsub(text, KEY_BUTTON3, "M3")
+	text = string.gsub(text, KEY_BUTTON4, "M4")
+	text = string.gsub(text, KEY_BUTTON5, "M5")
+	text = string.gsub(text, KEY_MOUSEWHEELUP, "MU")
+	text = string.gsub(text, KEY_MOUSEWHEELDOWN, "MD")
+	text = string.gsub(text, KEY_NUMPAD0, "N0")
+    text = string.gsub(text, KEY_NUMPAD1, "N1")
+    text = string.gsub(text, KEY_NUMPAD2, "N2")
+    text = string.gsub(text, KEY_NUMPAD3, "N3")
+    text = string.gsub(text, KEY_NUMPAD4, "N4")
+    text = string.gsub(text, KEY_NUMPAD5, "N5")
+    text = string.gsub(text, KEY_NUMPAD6, "N6")
+    text = string.gsub(text, KEY_NUMPAD7, "N7")
+    text = string.gsub(text, KEY_NUMPAD8, "N8")
+    text = string.gsub(text, KEY_NUMPAD9, "N9")
+    text = string.gsub(text, KEY_NUMPADDECIMAL, "N.")
+    text = string.gsub(text, KEY_NUMPADDIVIDE, "N/")
+    text = string.gsub(text, KEY_NUMPADMINUS, "N-")
+    text = string.gsub(text, KEY_NUMPADMULTIPLY, "N*")
+    text = string.gsub(text, KEY_NUMPADPLUS, "N+")
+	text = string.gsub(text, KEY_PAGEUP, "PU")
+	text = string.gsub(text, KEY_PAGEDOWN, "PD")
+	text = string.gsub(text, KEY_SPACE, "Spc")
+	text = string.gsub(text, KEY_INSERT, "Ins")
+	text = string.gsub(text, KEY_HOME, "Hm")
+	text = string.gsub(text, KEY_DELETE, "Del")
+	text = string.gsub(text, KEY_INSERT_MAC, "Hlp") -- mac
+
+	hotkey:SetText(text)
 end
 
 function ab:styleFlyout()
@@ -231,9 +604,11 @@ function ab:skinButton(frame,bar,parent)
 		end
 	end
 	
+	
+
 	if _G[name.."Shine"] then
-		--_G[name.."Shine"]:SetAlpha(0)
-		--_G[name.."Shine"]:Hide()
+		_G[name.."Shine"]:SetAlpha(0)
+		_G[name.."Shine"]:Hide()
 		_G[name.."Shine"]:SetPoint("BOTTOMLEFT", frame, "BOTTOMLEFT", 0, 0)
 		_G[name.."Shine"]:SetPoint("TOPRIGHT", frame, "TOPRIGHT", 0, 0)
 	end
@@ -258,3 +633,15 @@ function ab:skinButton(frame,bar,parent)
 	frame.skinned = true
 end
 
+function ab:Size(frame, group, num)
+	if (InCombatLockdown()) then return end
+	local border = bdCore.config.persistent['General'].border
+		local rows = math.floor(num/config[group])
+	if (bdCore.isBFA) then
+		rows = math.floor(num/config[group]) + 1
+	end
+	local height = (config.buttonsize+border+config.buttonspacing)*(num/rows)-config.buttonspacing-border
+	local width = (config.buttonsize+border+config.buttonspacing)*(rows)-config.buttonspacing-border
+	frame:SetSize(width, height)
+	--frame.moveContainer:Size(width+4, height+4)
+end

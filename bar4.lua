@@ -1,29 +1,29 @@
 local addon, ab = ...
 local config = bdCore.config.profile['Actionbars']
 
-bdCore:makeMovable(ab.bar3)
+bdCore:makeMovable(ab.bar4)
 
-MultiBarBottomRight:SetParent(ab.bar3)
-MultiBarBottomRight:SetScript("OnHide", function() ab.bar3:Hide() end)
-MultiBarBottomRight:SetScript("OnShow", function() ab.bar3:Show() end)
+MultiBarRight:SetParent(ab.bar4)
+MultiBarRight:SetScript("OnHide", function() ab.bar4:Hide() end)
+MultiBarRight:SetScript("OnShow", function() ab.bar4:Show() end)
 
-
-function ab.bar3:Update()
+function ab.bar4:Update()
 	config = bdCore.config.profile['Actionbars']
-	local rows = math.floor(NUM_ACTIONBAR_BUTTONS/config.bar3rows)
+	local rows = math.floor(NUM_ACTIONBAR_BUTTONS/config.bar4rows)
 	local index = 1
-	local lastrow = MultiBarBottomRightButton1
+	local lastrow = MultiBarRightButton1
 	local lastbutton = nil
-	ab:Size(ab.bar3,'bar3rows',NUM_ACTIONBAR_BUTTONS)
+	ab:Size(ab.bar4,'bar4rows',NUM_ACTIONBAR_BUTTONS)
 	
 	for i = 1, NUM_ACTIONBAR_BUTTONS do
-		local Button = _G["MultiBarBottomRightButton"..i]
+		local Button = _G["MultiBarRightButton"..i]
 		local border = bdCore.config.persistent['General'].border
 		Button:SetSize(config.buttonsize,config.buttonsize)
 		Button:ClearAllPoints()
 		Button:SetFrameStrata("BACKGROUND")
 		Button:SetFrameLevel(15)
-		ab:skinButton(Button,"bar3",ab.bar3)
+		Button:SetAttribute("flyoutDirection","UP")
+		ab:skinButton(Button,"bar4",ab.bar4)
 
 		if (not lastbutton) then
 			Button:SetPoint("TOPLEFT", self, "TOPLEFT", 0, 0)
@@ -38,18 +38,18 @@ function ab.bar3:Update()
 		index = index + 1
 		lastbutton = Button
 		
-		ab.bar3["Button"..i] = Button
+		ab.bar4["Button"..i] = Button
 	end
 end
---bdCore:hookEvent("bd_reconfig",function() ab.bar3:Update() end)
+--bdCore:hookEvent("bd_reconfig",function() ab.bar4:Update() end)
 
 for i = 7, 12 do
-	local Button = _G["MultiBarBottomRightButton"..i]
-	local Button1 = _G["MultiBarBottomRightButton1"]
+	local Button = _G["MultiBarRightButton"..i]
+	local Button1 = _G["MultiBarRightButton1"]
 	
 	Button:SetFrameLevel(Button1:GetFrameLevel() - 2)
 end
 
-ab.bar3:Update()
+ab.bar4:Update()
 
-RegisterStateDriver(ab.bar3, "visibility", "[vehicleui][petbattle][overridebar] hide; show")
+RegisterStateDriver(ab.bar4, "visibility", "[vehicleui][petbattle][overridebar] hide; show")

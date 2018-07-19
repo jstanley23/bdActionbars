@@ -1,25 +1,19 @@
-## Interface: 80000
+## Interface: 72000
 ## Title: |cffA02C2Fbd|rActionbars
 ## Version: 0
 ## DefaultState: Enabled
 ## LoadOnDemand: 0
 ## Dependencies: bdCore
 
-
-config.lua
 core.lua
-blizzard.lua
-bars.lua
-
-#core_backup.lua
-#bar1.lua
-#bar2.lua
-#bar3.lua
-#bar4.lua
-#bar5.lua
-#petbar.lua
-#stancebar.lua
-#vehicle.lua
-#ranged.lua
-#extra.lua
-#bindings.lua
+bar1.lua
+bar2.lua
+bar3.lua
+bar4.lua
+bar5.lua
+petbar.lua
+stancebar.lua
+vehicle.lua
+ranged.lua
+extra.lua
+bindings.lua

@@ -90,7 +90,7 @@ function ab.bar1:Update()
 end
 
 ab.bar1:RegisterEvent("PLAYER_ENTERING_WORLD")
-ab.bar1:RegisterEvent("KNOWN_CURRENCY_TYPES_UPDATE")
+-- ab.bar1:RegisterEvent("KNOWN_CURRENCY_TYPES_UPDATE")
 ab.bar1:RegisterEvent("CURRENCY_DISPLAY_UPDATE")
 ab.bar1:RegisterEvent("BAG_UPDATE")
 ab.bar1:SetScript("OnEvent", function(self, event, unit, ...)
@@ -100,7 +100,7 @@ ab.bar1:SetScript("OnEvent", function(self, event, unit, ...)
 	elseif (event == "PLAYER_ENTERING_WORLD") then
 		
 	else
-		MainMenuBar_OnEvent(self, event, ...)
+		-- MainMenuBar_OnEvent(self, event, ...)
 	end
 end)
 
