@@ -57,6 +57,8 @@ end
 updateDriver()
 
 function ab.bar1:Update()
+	self:SetFrameStrata("MEDIUM")
+
 	config = bdCore.config.profile['Actionbars']
 	local rows = math.floor(NUM_ACTIONBAR_BUTTONS/config.bar1rows)
 	local index = 1
@@ -109,8 +111,12 @@ for i = 1, NUM_ACTIONBAR_BUTTONS do
 	ab.bar1["Button"..i] = Button
 end
 
-ab.bar1:Update()
 
 MainMenuBar:SetScale(0.001)
+MainMenuBar:SetFrameStrata("BACKGROUND")
+MainMenuBar.SetFrameStrata = bdCore.noop
 MainMenuBar:SetAlpha(0)
+MainMenuBar:EnableMouse(0)
 MainMenuBarArtFrame:Hide()
+
+ab.bar1:Update()
