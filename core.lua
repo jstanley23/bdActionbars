@@ -636,10 +636,8 @@ end
 function ab:Size(frame, group, num)
 	if (InCombatLockdown()) then return end
 	local border = bdCore.config.persistent['General'].border
-		local rows = math.floor(num/config[group])
-	if (bdCore.isBFA) then
-		rows = math.floor(num/config[group]) + 1
-	end
+	local rows = math.floor(num/config[group])
+
 	local height = (config.buttonsize+border+config.buttonspacing)*(num/rows)-config.buttonspacing-border
 	local width = (config.buttonsize+border+config.buttonspacing)*(rows)-config.buttonspacing-border
 	frame:SetSize(width, height)
