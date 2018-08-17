@@ -10,6 +10,21 @@ defaults[#defaults+1] = {stanceswitch = {
 	tooltip = "For classes like Rogue, Warrior, and Demo lock. Change to a new bar when you change stances.",
 	callback = function() ab.bar1.UpdateBar1() end
 }}
+defaults[#defaults+1] = {microSize = {
+	type = "slider",
+	value = 50,
+	label = "Micro Menu Size",
+	step = 2,
+	min = 20,
+	max = 100,
+	callback = function() ab.MicroMenu:configCallback() end
+}}
+defaults[#defaults+1] = {microMenuEnable = {
+	type = "checkbox",
+	value = true,
+	label = "Enable display of Micro Menu.",
+	callback = function() ab.MicroMenu:configCallback() end
+}}
 defaults[#defaults+1] = {buttonsize = {
 	type = "slider",
 	value = 30,
