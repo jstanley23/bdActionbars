@@ -12,7 +12,7 @@ PetActionBarFrame:EnableMouse(false)
 
 function ab.petbar:Update()
 	config = bdCore.config.profile['Actionbars']
-	local rows = math.floor(NUM_PET_ACTION_SLOTS/config.stancebarrows)
+	local rows = math.floor(NUM_PET_ACTION_SLOTS/config.petbarrows)
 	local index = 1
 	local lastrow = PetActionButton1
 	local lastbutton = nil
